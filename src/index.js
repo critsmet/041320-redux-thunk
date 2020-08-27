@@ -2,16 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+import { Provider } from 'react-redux'
+//Provider is using the technology of the context API
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+
+import booksReducer from './redux/booksReducer'
+
+//MIDDLEWARE IS ANY BIT OF CODE THAT INTERCEPTS A PROCESS AND CHANGES THE OUTCOME
+
+let store = createStore(booksReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+//1. Create reducer
+//2. Create actions for reducer
+//3. Create store, pass it to Provider
